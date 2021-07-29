@@ -1,0 +1,10 @@
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+RewriteBase /labs/Projet-CDL/
+RewriteCond %{REQUEST_URI} ^system.*
+RewriteRule ^(.*)$ /Index.php/$1 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ Index.php/$1 [L]
+</IfModule>
