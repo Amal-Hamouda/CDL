@@ -239,12 +239,12 @@
             'dev_requirement' => true,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v7.91.0',
-            'version' => '7.91.0.0',
+            'pretty_version' => 'v7.92.0',
+            'version' => '7.92.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),
-            'reference' => 'bb7db27140858833ecc2a95de94763b5a120bc5d',
+            'reference' => '4b549e6f7d3e7ffd877547a0f1e8bd01c363e268',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-ctype' => array(

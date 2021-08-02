@@ -1,4 +1,23 @@
-<!DOCTYPE html>
+<?php
+require_once('/vendor/stripe/stripe-php/init.php');
+\Stripe\Stripe::setApiKey('sk_test_51JHpHoG89vko2fx6LOAAOiW6g8NBU4dfXh8QbKULTHMs8b7UJwDQXkkS18RsyTk8JJ5mS3bP3KQ3WZ41Bz51YfWC00nEi4ookx');
+$session =\Stripe\Checkout\Session::create([
+  'payment_method_types' => ['card'],
+  'line_items' => [[
+    'price_data' => [
+      'currency' => 'eur',
+      'product_data' => [
+        'name' => 'Don',
+      ],
+      'unit_amount' => 2000,
+    ],
+    'quantity' => 1,
+  ]],
+  'mode' => 'payment',
+  'success_url' => 'https://example.com/success',
+  'cancel_url' => 'https://example.com/cancel',
+  ]);
+?>
 <html lang="en">
 
 <head>
@@ -10,6 +29,7 @@
     <link rel="shortcut icon" href="<?php echo base_url();?>/resources/img/favicon.ico" />
     <title>Donate</title>
 	
+	
     <!-- styles-->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -18,6 +38,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo base_url();?>/resources/css/donate.css" />
+	<script src="https://js.stripe.com/v3/"></script>
+
 
     <!-- web-font loader-->
     <style>
@@ -299,7 +321,17 @@
 																<div class="tab-content">
 																	<!-- credit card info-->
 																	<div id="credit-card" class="tab-pane fade show active pt-3">
-															
+																	<button id="checkout-button">Checkout</button>
+  <script>
+    var stripe = Stripe('pk_test_51JHpHoG89vko2fx6HqUIn0ktlO2HJJPYj97tiI8Fww881IVfrX9KzXVa9xc4UjijCuDQg2DfwJa31XPGJx1cA3rj00cKqQiClC');
+    const btn = document.getElementById("checkout-button")
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+    stripe.redirectToCheckout({
+      sessionId:"<?php echo $session->id; ?>"
+    });
+    });
+  </script>
 																	</div>
 																 <!-- End -->
 																<!-- Paypal info -->
